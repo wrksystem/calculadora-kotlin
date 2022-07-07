@@ -140,10 +140,13 @@
             android:id="@+id/numero_zero"
             style="@style/Number_Button"
             android:text="0"/>
-        <TextView
+
+        <ImageButton
             android:id="@+id/backspace"
+            android:src="@drawable/backspace"
             style="@style/Number_Button"
-            android:text="back"/>
+            android:scaleType="center"/>
+
         <TextView
             android:id="@+id/igual"
             style="@style/Operators_Button"
