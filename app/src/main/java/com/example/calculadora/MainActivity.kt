@@ -3,10 +3,9 @@ package com.example.calculadora
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.ImageButton
-import android.widget.ImageView
 import android.widget.TextView
 import net.objecthunter.exp4j.ExpressionBuilder
-import org.w3c.dom.Text
+
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -55,12 +54,12 @@ class MainActivity : AppCompatActivity() {
         divisao.setOnClickListener{AcrescentarUmaExpressao("/", limpar_dados = false)}
 
         val expressao = findViewById<TextView>(R.id.expressao)
-        val resultado = findViewById<TextView>(R.id.resultado)
+        val txt_resultado = findViewById<TextView>(R.id.txt_resultado)
         val igual = findViewById<TextView>(R.id.igual)
 
         limpar.setOnClickListener{
             expressao.text = ""
-            resultado.text = ""
+            txt_resultado.text = ""
         }
 
         backspace.setOnClickListener{
@@ -70,22 +69,23 @@ class MainActivity : AppCompatActivity() {
             if (string.isNotBlank()){
                 expressao.text = string.substring(0, string.length-1)
             }
-            resultado.text = ""
+            txt_resultado.text = ""
         }
 
         igual.setOnClickListener{
 
             try {
+                //val expressao = ExpressionBuilder(expressao.text.toString())
                 val expressao = ExpressionBuilder(expressao.text.toString())
-                val resultado = expressao.evaluate()
+                val resultado = expressao.build().evaluate()
                 val longResult = resultado.toLong()
 
-                if (resultado == longResult.toDouble){
-                    resultado
-                }
+                if (resultado == longResult.toDouble())
+                    txt_resultado.text = longResult.toString()
+                else
+                    txt_resultado.text = resultado.toString()
 
-            }catch (){
-
+            }catch (e: Exception){
             }
         }
 
@@ -93,20 +93,20 @@ class MainActivity : AppCompatActivity() {
 
     fun AcrescentarUmaExpressao(string: String, limpar_dados : Boolean){
 
-        val resultado = findViewById<TextView>(R.id.resultado)
+        val txt_resultado = findViewById<TextView>(R.id.txt_resultado)
         val expressao = findViewById<TextView>(R.id.expressao)
 
-        if (resultado.text.isNotEmpty()){
+        if (txt_resultado.text.isNotEmpty()){
             expressao.text = ""
         }
 
         if (limpar_dados){
-            resultado.text = ""
+            txt_resultado.text = ""
             expressao.append(string)
         }else{
-            expressao.append(resultado.text)
+            expressao.append(txt_resultado.text)
             expressao.append(string)
-            resultado.text = ""
+            txt_resultado.text = ""
         }
     }
 

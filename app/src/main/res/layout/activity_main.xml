@@ -20,7 +20,7 @@
         android:singleLine="true"/>
 
     <TextView
-        android:id="@+id/resultado"
+        android:id="@+id/txt_resultado"
         android:layout_width="match_parent"
         android:layout_height="100dp"
         android:textColor="@color/black"
